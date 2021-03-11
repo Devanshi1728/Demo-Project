@@ -9,25 +9,26 @@ class AuthModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(30), unique=True, nullable=False)
     password = db.Column(db.String(30), nullable=False)
-    role = db.Column(db.String(10), nullable=False)
+    role = db.Column(db.String(10), default="Customer")
     city = db.Column(db.String(30), nullable=False)
     phone = db.Column(db.String(10), nullable=False)
 
-    def __init__(self, username, password, city, role, phone):
+
+    def __init__(self, username, password, city, phone, role):
         self.username = username
         self.password = password
-        self.city = city
+        self.city = city   
         self.role = role
         self.phone = phone
 
     def json(self):
         # json represantation of model object
         return {
-            "User Id": self.id,
+            "UserId": self.id,
             "Username": self.username,
             "Password": hash(self.password),
             "City": self.city,
-            "role":self.role,
+            "Role":self.role,
             "Phone": self.phone
         }
 

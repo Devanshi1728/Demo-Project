@@ -1,7 +1,9 @@
 from flask import Flask
 from flask_restful import Api
 
-from resource.Customer import Registration, UserList, UserLogin, UserLogout, UserDelete
+from resource.users import Registration, User, UserLogin, UserLogout
+from resource.category import *
+from resource.item import *
 
 from app_init import app,api,jwt
 blocklist = set()
@@ -30,9 +32,15 @@ def init():
 
 api.add_resource(Registration, '/auth/registration')
 api.add_resource(UserLogin, '/auth/login')
-api.add_resource(UserList, '/userlist')
 api.add_resource(UserLogout, '/logout')
-api.add_resource(UserDelete, '/delete')
+
+api.add_resource(User, '/delete', '/userlist', '/user/<int:id>' )
+
+api.add_resource(Category, '/category', '/category/<int:id>')
+api.add_resource(CategoryList, '/catlist')
+
+api.add_resource(Item, '/item','/item/<int:id>')
+api.add_resource(ItemList, '/itemlist')
 
 # print(Test())
 
